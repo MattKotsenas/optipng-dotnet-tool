@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -10,6 +10,7 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,7 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OptiPNG.Runner\OptiPNG.Runner.csproj" />
+    <ProjectReference Include="../../src/OptiPNG.Runner/OptiPNG.Runner.csproj" />
+    <ProjectReference Include="../OptiPNG.Mock.Publisher/OptiPNG.Mock.Publisher.csproj" />
   </ItemGroup>
 
 </Project>
