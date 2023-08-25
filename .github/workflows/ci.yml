@@ -9,8 +9,11 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        os: [windows-2022, ubuntu-22.04, macos-12]
 
-    runs-on: windows-2022
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
