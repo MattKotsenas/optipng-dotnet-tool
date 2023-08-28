@@ -1,4 +1,5 @@
 ﻿using CliWrap;
+
 using Spectre.Console;
 
 namespace OptiPNG.Runner;
@@ -9,6 +10,16 @@ internal class Program
     {
         try
         {
+            var inspector = new PlatformInspector();
+
+            var mapper = new VendorMapper();
+            var path = mapper.Map(Environment.GetEnvironmentVariable("PATH"), inspector);
+
+            if (path is not null)
+            {
+                Environment.SetEnvironmentVariable("PATH", path);
+            }
+
             var result = await Cli.Wrap("optipng")
                 .WithArguments(args)
                 .WithValidation(CommandResultValidation.None)

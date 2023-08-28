@@ -5,13 +5,13 @@ using CliWrap.Buffered;
 
 namespace OptiPNG.Runner.Tests;
 
-public class When_OptiPNG_is_discoverable
+public class When_a_custom_OptiPNG_is_available_on_the_users_PATH
 {
     private readonly record struct PlatformInfo(string RuntimeIdentifier, string EnvPathSeparator);
 
     private readonly ITestOutputHelper _output;
 
-    public When_OptiPNG_is_discoverable(ITestOutputHelper output)
+    public When_a_custom_OptiPNG_is_available_on_the_users_PATH(ITestOutputHelper output)
     {
         _output = output;
     }
@@ -55,7 +55,7 @@ public class When_OptiPNG_is_discoverable
     }
 
     [Fact]
-    public async Task It_run_and_returns_a_zero_exit_code()
+    public async Task The_custom_executable_is_used()
     {
         var platformInfo = GetPlatformInfo();
         var mockPath = BuildPathToOptiPNGMock(platformInfo.RuntimeIdentifier);
@@ -75,18 +75,18 @@ public class When_OptiPNG_is_discoverable
     }
 }
 
-public class When_OptiPNG_is_not_discoverable
+public class When_there_is_no_custom_OptiPNG_available_on_the_users_PATH
 {
     [Fact]
-    public async Task It_returns_a_non_zero_exit_code()
+    public async Task The_vendor_implementation_is_used()
     {
         var result = await Cli.Wrap("OptiPNGRunner")
             .WithValidation(CommandResultValidation.None)
             .ExecuteBufferedAsync();
 
-        result.ExitCode.Should().NotBe(0);
+        result.ExitCode.Should().Be(0);
 
-        result.StandardOutput.Should().BeEmpty();
-        result.StandardError.Should().Contain("Failed to start a process");
+        result.StandardOutput.Should().Contain("Type \"optipng -h\" for extended help.");
+        result.StandardError.Should().BeEmpty();
     }
 }
