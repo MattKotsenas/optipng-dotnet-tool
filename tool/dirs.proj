@@ -2,7 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="src/OptiPNG.Runner/OptiPNG.Runner.csproj" />
     <ProjectReference Include="src/OptiPNG.Wrapper/OptiPNG.Wrapper.csproj" />
-    <ProjectReference Include="tests/OptiPNG.Runner.Tests/OptiPNG.Runner.Tests.csproj" />
+    <ProjectReference Include="tests/OptiPNG.Runner.IntegrationTests/OptiPNG.Runner.IntegrationTests.csproj" />
     <ProjectReference Include="tests/OptiPNG.Mock/OptiPNG.Mock.csproj" />
     <ProjectReference Include="tests/OptiPNG.Mock.Publisher/OptiPNG.Mock.Publisher.csproj" />
   </ItemGroup>

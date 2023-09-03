@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
-    <RootNamespace>OptiPNG.Runner.Tests</RootNamespace>
+    <RootNamespace>OptiPNG.Runner.IntegrationTests</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
 
     <IsPackable>false</IsPackable>
