@@ -12,7 +12,7 @@ internal class VendorMapper
         _inspector = inspector;
     }
 
-    public string? Map(string? path)
+    public string? Map()
     {
         try
         {
@@ -21,15 +21,15 @@ internal class VendorMapper
             var entryAssembly = Assembly.GetEntryAssembly();
             if (entryAssembly is null)
             {
-                // We won't be able to find the packaged vendor binaries, so rely on the pre-existing $PATH
-                return path;
+                // We won't be able to find the packaged vendor binaries, thus we can't provide a vendor path
+                return null;
             }
 
             var parent = new FileInfo(entryAssembly.Location).DirectoryName;
             if (parent is null)
             {
-                // We won't be able to find the packaged vendor binaries, so rely on the pre-existing $PATH
-                return path;
+                // We won't be able to find the packaged vendor binaries, thus we can't provide a vendor path
+                return null;
             }
 
 
@@ -62,16 +62,16 @@ internal class VendorMapper
             }
             else
             {
-                // Unknown platform, so rely on the pre-existing $PATH
-                return path;
+                // Unknown platform, thus we can't provide a vendor path
+                return null;
             }
 
-            return $"{path}{info.EnvPathSeparator}{Path.Join(newPath.ToArray())}";
+            return $"{info.EnvPathSeparator}{Path.Join(newPath.ToArray())}";
         }
         catch
         {
-            // Unknown platform / error inspecting platform, so rely on the pre-existing $PATH
-            return path;
+            // Unknown platform / error inspecting platform, thus we can't provide a vendor path
+            return null;
         }
     }
 }

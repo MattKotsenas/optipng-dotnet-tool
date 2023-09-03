@@ -15,12 +15,13 @@ internal class VendorPathAppender
 
         var path = Environment.GetEnvironmentVariable("PATH");
 
-        // TODO: Refactor to avoid needing to pass in $PATH here
-        path = _vendorMapper.Map(path);
+        var vendorPath = _vendorMapper.Map();
 
-        if (path is not null)
+        if (vendorPath is not null)
         {
             didModify = true;
+
+            path = $"{path}{vendorPath}";
             Environment.SetEnvironmentVariable("PATH", path);
         }
 
