@@ -5,11 +5,18 @@ namespace OptiPNG.Runner;
 
 internal class VendorMapper
 {
-    public string? Map(string? path, PlatformInspector inspector)
+    private readonly PlatformInspector _inspector;
+
+    public VendorMapper(PlatformInspector inspector)
+    {
+        _inspector = inspector;
+    }
+
+    public string? Map(string? path)
     {
         try
         {
-            var info = inspector.Inspect();
+            var info = _inspector.Inspect();
 
             var entryAssembly = Assembly.GetEntryAssembly();
             if (entryAssembly is null)

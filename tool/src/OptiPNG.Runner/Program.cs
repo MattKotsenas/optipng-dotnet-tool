@@ -1,24 +1,41 @@
 ﻿using CliWrap;
-
+using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
 
 namespace OptiPNG.Runner;
 
+internal record ErrorConsoleHolder(IAnsiConsole Console);
+
 internal class Program
 {
+    private static IServiceProvider BuildServiceProvider()
+    {
+        var services = new ServiceCollection();
+
+        services.AddSingleton<PlatformInspector>();
+        services.AddSingleton<VendorMapper>();
+        services.AddSingleton<VendorPathAppender>();
+
+        services.AddSingleton<ErrorConsoleHolder>(sp =>
+        {
+            var console = AnsiConsole.Create(new AnsiConsoleSettings
+            {
+                Out = new AnsiConsoleOutput(Console.Error)
+            });
+
+            return new ErrorConsoleHolder(console);
+        });
+
+        return services.BuildServiceProvider();
+    }
+
     private static async Task<int> Main(string[] args)
     {
+        var provider = BuildServiceProvider();
+
         try
         {
-            var inspector = new PlatformInspector();
-
-            var mapper = new VendorMapper();
-            var path = mapper.Map(Environment.GetEnvironmentVariable("PATH"), inspector);
-
-            if (path is not null)
-            {
-                Environment.SetEnvironmentVariable("PATH", path);
-            }
+            provider.GetRequiredService<VendorPathAppender>().TryAppend();
 
             var result = await Cli.Wrap("optipng")
                 .WithArguments(args)
@@ -31,11 +48,7 @@ internal class Program
         }
         catch (Exception ex)
         {
-            var settings = new AnsiConsoleSettings
-            {
-                Out = new AnsiConsoleOutput(Console.Error)
-            };
-            var console = AnsiConsole.Create(settings);
+            var console = provider.GetRequiredService<ErrorConsoleHolder>().Console;
 
             console.WriteException(ex, ExceptionFormats.ShortenEverything);
         }

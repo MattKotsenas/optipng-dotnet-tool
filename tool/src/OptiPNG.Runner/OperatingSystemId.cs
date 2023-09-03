@@ -1,6 +1,6 @@
 ﻿namespace OptiPNG.Runner;
 
-public enum OperatingSystemId
+internal enum OperatingSystemId
 {
     Unknown,
     Windows,

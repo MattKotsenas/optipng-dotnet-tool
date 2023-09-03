@@ -2,7 +2,7 @@
 
 namespace OptiPNG.Runner;
 
-public readonly struct PlatformInfo
+internal readonly struct PlatformInfo
 {
     public OperatingSystemId OsId { get; init; }
     public Architecture RuntimeCpuArchitecture { get; init; }
