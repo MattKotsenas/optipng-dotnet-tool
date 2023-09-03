@@ -6,9 +6,9 @@ namespace OptiPNG.MSBuild;
 /// <summary>
 /// A task for invoking the OptiPNG tool.
 /// </summary>
-public class OptiPNG : ToolTask
+public class OptiPNGWrapper : ToolTask
 {
-    private static readonly string ExeName = "optipng"; // TODO: Replace with wrapper's name
+    private static readonly string ExeName = "OptiPNG.Wrapper";
 
     /// <summary>
     /// The current working directory for optipng.
@@ -32,14 +32,19 @@ public class OptiPNG : ToolTask
             return ExecutablePath!;
         }
 
+        // TODO: Pull wrapper from NuGet package.
+
         return ExeName;
     }
 
     protected override string GenerateCommandLineCommands()
     {
-        CommandLineBuilder builder = new CommandLineBuilder();
+        var builder = new CommandLineBuilder();
 
-        // TODO: Fill in options based on wrapper's switches.
+        foreach (var file in Files)
+        {
+            builder.AppendFileNameIfNotNull(file);
+        }
 
         return builder.ToString();
     }
