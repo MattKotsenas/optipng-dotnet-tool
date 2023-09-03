@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/OptiPNG.Runner/OptiPNG.Runner.csproj" />
-    <ProjectReference Include="../OptiPNG.Mock.Publisher/OptiPNG.Mock.Publisher.csproj" />
+    <ProjectReference Include="../OptiPNG.Mock.Publisher/OptiPNG.Mock.Publisher.csproj" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>

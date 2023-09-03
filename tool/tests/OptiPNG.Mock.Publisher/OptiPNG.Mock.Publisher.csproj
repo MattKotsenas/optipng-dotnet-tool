@@ -1,4 +1,10 @@
 ﻿<Project Sdk="Microsoft.Build.NoTargets">
+  <!--
+    This isn't a "real" project, it's a NoTargets project with the job of publishing the mock library for all supported
+    platforms. By separating these steps into their own project, we simplify the build dependency graph because the tests
+    can take a project reference on this project and be assured the mock is already published.
+  -->
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
