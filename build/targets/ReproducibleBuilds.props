@@ -13,7 +13,7 @@
     <PackageReference Include="DotNet.ReproducibleBuilds" PrivateAssets="All" />
 
     <!-- This can be removed once the fix for https://github.com/dotnet/reproducible-builds/issues/19 is released -->
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" />
   </ItemGroup>
 
   <Sdk Name="DotNet.ReproducibleBuilds.Isolated" />
