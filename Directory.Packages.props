@@ -20,10 +20,4 @@
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <!-- Polyfill Dependencies -->
-    <PackageVersion Include="Polyfill" Version="1.27.1" />
-    <PackageVersion Include="System.Memory" Version="4.5.5" />
-    <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
-  </ItemGroup>
 </Project>
