@@ -2,12 +2,37 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <!--
+      TargetFramework should be as old as is supported to maximize the number of users that already
+      have a compatible runtime installed.
+    -->
+    <TargetFramework>net6.0</TargetFramework>
+    <RollForward>LatestMajor</RollForward>
     <RootNamespace>OptiPNG.Runner</RootNamespace>
     <AssemblyName>OptiPNGRunner</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- dotnet tool properties -->
+    <PackAsTool>true</PackAsTool>
+    <PackageId>OptiPNG.Tool</PackageId>
+    <Authors>Matt Kotsenas</Authors>
+    <PackageProjectUrl>https://github.com/MattKotsenas/optipng-dotnet-tool</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Copyright (c) Matt Kotsenas 2023</Copyright>
+    <PackageTags>Png Optimize Optimization Compress Compression Image</PackageTags>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <ToolCommandName>dotnet-optipng</ToolCommandName>
+    <PackageOutputPath>$(ArtifactsPath)/package</PackageOutputPath>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>Tool package for the optipng lossless PNG optimization utility.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(RepoRoot)/README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CliWrap" />

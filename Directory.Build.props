@@ -7,5 +7,6 @@
   <Import Project="build/targets/ReproducibleBuilds.props" />
   <Import Project="build/targets/Polyfill.props" />
   <Import Project="build/targets/TestProject.props" />
+  <Import Project="build/targets/Artifacts.props" />
 
 </Project>
