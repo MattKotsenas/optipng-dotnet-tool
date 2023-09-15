@@ -1,0 +1,11 @@
+<Project>
+
+  <ItemGroup>
+    <PackageVersion Include="Nerdbank.GitVersioning" Version="3.6.133" />
+
+    <PackageReference Include="Nerdbank.GitVersioning" Condition="!Exists('packages.config')">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
