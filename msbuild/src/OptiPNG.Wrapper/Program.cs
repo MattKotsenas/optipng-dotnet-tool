@@ -9,8 +9,8 @@ internal class Program
     {
         var files = args ?? Array.Empty<string>();
 
-        // TODO: Replace `OptiPNGRunner` with `dotnet optipng` and remove ProjectReference
-        var result = await Cli.Wrap("OptiPNGRunner")
+        // TODO: Replace `OptiPNGTool` with `dotnet optipng` and remove ProjectReference
+        var result = await Cli.Wrap("OptiPNGTool")
             .WithArguments(new[] { "-simulate" }.Union(files))
             .WithValidation(CommandResultValidation.None)
             .ExecuteBufferedAsync();

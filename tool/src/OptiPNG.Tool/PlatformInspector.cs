@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace OptiPNG.Runner;
+namespace OptiPNG.Tool;
 
 internal class PlatformInspector
 {

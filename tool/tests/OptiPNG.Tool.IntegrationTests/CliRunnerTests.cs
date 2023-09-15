@@ -3,7 +3,7 @@ using System.Reflection;
 using CliWrap;
 using CliWrap.Buffered;
 
-namespace OptiPNG.Runner.IntegrationTests;
+namespace OptiPNG.Tool.IntegrationTests;
 
 public class When_a_custom_OptiPNG_is_available_on_the_users_PATH
 {
@@ -61,8 +61,8 @@ public class When_a_custom_OptiPNG_is_available_on_the_users_PATH
         var mockPath = BuildPathToOptiPNGMock(platformInfo.RuntimeIdentifier);
         _output.WriteLine("Using mock path `{0}`", mockPath);
 
-        // TODO: Replace `OptiPNGRunner` with `dotnet optipng` and remove ProjectReference
-        var result = await Cli.Wrap("OptiPNGRunner")
+        // TODO: Replace `OptiPNGTool` with `dotnet optipng` and remove ProjectReference
+        var result = await Cli.Wrap("OptiPNGTool")
             .WithEnvironmentVariables(new Dictionary<string, string?>
             {
                 { "PATH", $@"{Environment.GetEnvironmentVariable("PATH")}{platformInfo.EnvPathSeparator}{mockPath}" }
@@ -81,8 +81,8 @@ public class When_there_is_no_custom_OptiPNG_available_on_the_users_PATH
     [Fact]
     public async Task The_vendor_implementation_is_used()
     {
-        // TODO: Replace `OptiPNGRunner` with `dotnet optipng` and remove ProjectReference
-        var result = await Cli.Wrap("OptiPNGRunner")
+        // TODO: Replace `OptiPNGTool` with `dotnet optipng` and remove ProjectReference
+        var result = await Cli.Wrap("OptiPNGTool")
             .WithValidation(CommandResultValidation.None)
             .ExecuteBufferedAsync();
 

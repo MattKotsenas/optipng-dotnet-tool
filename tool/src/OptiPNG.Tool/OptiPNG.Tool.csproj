@@ -8,8 +8,8 @@
     -->
     <TargetFramework>net6.0</TargetFramework>
     <RollForward>LatestMajor</RollForward>
-    <RootNamespace>OptiPNG.Runner</RootNamespace>
-    <AssemblyName>OptiPNGRunner</AssemblyName>
+    <RootNamespace>OptiPNG.Tool</RootNamespace>
+    <AssemblyName>OptiPNGTool</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

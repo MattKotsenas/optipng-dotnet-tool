@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../../tool/src/OptiPNG.Runner/OptiPNG.Runner.csproj" />
+    <ProjectReference Include="../../../tool/src/OptiPNG.Tool/OptiPNG.Tool.csproj" />
   </ItemGroup>
 
 </Project>

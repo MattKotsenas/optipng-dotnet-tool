@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
-    <RootNamespace>OptiPNG.Runner.IntegrationTests</RootNamespace>
+    <RootNamespace>OptiPNG.Tool.IntegrationTests</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
 
     <IsPackable>false</IsPackable>
@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../src/OptiPNG.Runner/OptiPNG.Runner.csproj" />
+    <ProjectReference Include="../../src/OptiPNG.Tool/OptiPNG.Tool.csproj" />
     <ProjectReference Include="../OptiPNG.Mock.Publisher/OptiPNG.Mock.Publisher.csproj" ReferenceOutputAssembly="false" />
   </ItemGroup>
 

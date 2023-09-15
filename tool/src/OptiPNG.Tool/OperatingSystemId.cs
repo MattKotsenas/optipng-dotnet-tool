@@ -1,4 +1,4 @@
-﻿namespace OptiPNG.Runner;
+﻿namespace OptiPNG.Tool;
 
 internal enum OperatingSystemId
 {

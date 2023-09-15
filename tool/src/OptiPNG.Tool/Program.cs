@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
 
-namespace OptiPNG.Runner;
+namespace OptiPNG.Tool;
 
 internal record ErrorConsoleHolder(IAnsiConsole Console);
 

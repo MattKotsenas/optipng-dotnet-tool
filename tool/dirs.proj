@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.Build.Traversal">
   <ItemGroup>
-    <ProjectReference Include="src/OptiPNG.Runner/OptiPNG.Runner.csproj" />
-    <ProjectReference Include="tests/OptiPNG.Runner.IntegrationTests/OptiPNG.Runner.IntegrationTests.csproj" />
+    <ProjectReference Include="src/OptiPNG.Tool/OptiPNG.Tool.csproj" />
+    <ProjectReference Include="tests/OptiPNG.Tool.IntegrationTests/OptiPNG.Tool.IntegrationTests.csproj" />
     <ProjectReference Include="tests/OptiPNG.Mock/OptiPNG.Mock.csproj" />
     <ProjectReference Include="tests/OptiPNG.Mock.Publisher/OptiPNG.Mock.Publisher.csproj" />
   </ItemGroup>
