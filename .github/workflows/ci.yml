@@ -57,4 +57,15 @@ jobs:
       run: dotnet restore
 
     - name: Pack
-      run: dotnet pack --no-restore
+      # Force a 'public' release pack, as GitHub release triggers don't populate branch info, so our version tool may
+      # not know if the package is for public consumption or not
+      run: dotnet pack --no-restore /p:PublicRelease=true
+
+    # Publish all NuGet packages. Use --skip-duplicate to prevent errors if a package with the same version already exists.
+    - name: Publish NuGet package
+      shell: pwsh
+      run: |
+        foreach ($file in (Get-ChildItem ./artifacts/package -Recurse -Include *.nupkg)) {
+          echo "NuGet publish for file: '$file'"
+          dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+        }

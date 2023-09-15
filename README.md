@@ -15,7 +15,11 @@ fail the build if not.
 
 ## Install
 
-`// TODO`
+Install the tool as a .NET CLI tool like this:
+
+```powershell
+dotnet tool install optipng.tool
+```
 
 ## Usage
 
