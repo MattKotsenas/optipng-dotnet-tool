@@ -1,11 +1,15 @@
 name: Build & Test
 
 on:
+  workflow_dispatch: # Allow running the workflow manually from the GitHub UI
   push:
     branches:
       - main
   pull_request:
     branches: [main]
+  release:
+    types:
+      - published # Run the workflow when a new GitHub release is published
 
 jobs:
   build:
@@ -18,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
+        fetch-depth: 0 # avoid shallow clone so nbgv can do its work
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -31,8 +35,26 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     
-    - name: Pack
-      run: dotnet pack --no-restore
-
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+  publish:
+    if: github.event_name == 'release' # Publish only when creating a GitHub Release
+    runs-on: ubuntu-22.04
+    needs: [build]
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0 # avoid shallow clone so nbgv can do its work
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        global-json-file: ./global.json
+
+    - name: NuGet Restore
+      run: dotnet restore
+
+    - name: Pack
+      run: dotnet pack --no-restore
