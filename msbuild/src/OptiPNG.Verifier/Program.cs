@@ -1,6 +1,6 @@
 ﻿using CliWrap.Buffered;
 
-namespace OptiPNG.Wrapper;
+namespace OptiPNG.Verifier;
 
 internal class Program
 {

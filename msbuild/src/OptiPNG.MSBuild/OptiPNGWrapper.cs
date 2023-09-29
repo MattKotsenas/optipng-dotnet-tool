@@ -3,12 +3,15 @@ using Microsoft.Build.Utilities;
 
 namespace OptiPNG.MSBuild;
 
+// TODO: Support response files to avoid max command length issues
+// https://learn.microsoft.com/en-us/troubleshoot/windows-client/shell-experience/command-line-string-limitation
+
 /// <summary>
 /// A task for invoking the OptiPNG tool.
 /// </summary>
 public class OptiPNGWrapper : ToolTask
 {
-    private static readonly string ExeName = "OptiPNG.Wrapper";
+    private static readonly string ExeName = "OptiPNG.Verifier";
 
     /// <summary>
     /// The current working directory for optipng.

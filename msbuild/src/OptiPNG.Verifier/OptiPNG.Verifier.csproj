@@ -6,7 +6,7 @@
     <UsePolyfill>true</UsePolyfill>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>OptiPNG.Wrapper</RootNamespace>
+    <RootNamespace>OptiPNG.Verifier</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
   </PropertyGroup>
 
