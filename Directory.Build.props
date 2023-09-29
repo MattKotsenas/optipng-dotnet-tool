@@ -9,5 +9,6 @@
   <Import Project="build/targets/TestProject.props" />
   <Import Project="build/targets/Artifacts.props" />
   <Import Project="build/targets/GitVersion.props" />
+  <Import Project="build/targets/NuGetPackage.props" />
 
 </Project>

@@ -2,5 +2,6 @@
 
   <Import Project="build/targets/Polyfill.targets" />
   <Import Project="build/targets/TestProject.targets" />
+  <Import Project="build/targets/NuGetPackage.targets" />
 
 </Project>

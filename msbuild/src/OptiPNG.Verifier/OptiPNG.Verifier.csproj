@@ -8,6 +8,7 @@
     <Nullable>enable</Nullable>
     <RootNamespace>OptiPNG.Verifier</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

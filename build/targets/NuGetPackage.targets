@@ -1,0 +1,7 @@
+<Project>
+
+  <ItemGroup Condition="'$(IsPackable)' == 'true' AND $(PackageReadmeFile) != ''">
+    <None Include="$(RepoRoot)/$(PackageReadmeFile)" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+</Project>

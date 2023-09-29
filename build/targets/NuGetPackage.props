@@ -1,0 +1,14 @@
+<Project>
+
+  <PropertyGroup>
+    <Authors>Matt Kotsenas</Authors>
+    <PackageProjectUrl>https://github.com/MattKotsenas/optipng-dotnet-tool</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Copyright (c) Matt Kotsenas 2023</Copyright>
+    <PackageTags>Png Optimize Optimization Compress Compression Image</PackageTags>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <PackageOutputPath>$(ArtifactsPath)/package</PackageOutputPath>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+</Project>

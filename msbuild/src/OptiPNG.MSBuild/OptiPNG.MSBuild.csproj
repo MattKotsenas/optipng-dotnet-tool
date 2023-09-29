@@ -7,6 +7,9 @@
     <Nullable>enable</Nullable>
     <RootNamespace>OptiPNG.MSBuild</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
+
+    <!-- TODO: Remove this when ready to publish the MSBuild package -->
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

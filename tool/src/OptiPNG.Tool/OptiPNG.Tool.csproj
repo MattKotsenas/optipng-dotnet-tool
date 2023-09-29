@@ -18,21 +18,9 @@
     <!-- dotnet tool properties -->
     <PackAsTool>true</PackAsTool>
     <PackageId>OptiPNG.Tool</PackageId>
-    <Authors>Matt Kotsenas</Authors>
-    <PackageProjectUrl>https://github.com/MattKotsenas/optipng-dotnet-tool</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Copyright>Copyright (c) Matt Kotsenas 2023</Copyright>
-    <PackageTags>Png Optimize Optimization Compress Compression Image</PackageTags>
-    <DevelopmentDependency>true</DevelopmentDependency>
     <ToolCommandName>dotnet-optipng</ToolCommandName>
-    <PackageOutputPath>$(ArtifactsPath)/package</PackageOutputPath>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     <Description>Tool package for the optipng lossless PNG optimization utility.</Description>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="$(RepoRoot)/README.md" Pack="true" PackagePath="/" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="$(RepoRoot)/launcher/src/OptiPNG.Launcher/OptiPNG.Launcher.csproj" />
