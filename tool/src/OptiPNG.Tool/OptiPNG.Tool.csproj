@@ -10,8 +10,6 @@
     <RollForward>LatestMajor</RollForward>
     <RootNamespace>OptiPNG.Tool</RootNamespace>
     <AssemblyName>OptiPNGTool</AssemblyName>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
