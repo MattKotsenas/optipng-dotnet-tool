@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-namespace OptiPNG.Tool;
+namespace OptiPNG.Launcher;
 
 internal class VendorMapper
 {
@@ -66,7 +66,7 @@ internal class VendorMapper
                 return null;
             }
 
-            return $"{info.EnvPathSeparator}{Path.Join(newPath.ToArray())}";
+            return $"{info.EnvPathSeparator}{Path.Combine(newPath.ToArray())}";
         }
         catch
         {

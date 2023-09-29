@@ -1,4 +1,5 @@
 ﻿using CliWrap;
+
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
 
@@ -12,10 +13,7 @@ internal class Program
     {
         var services = new ServiceCollection();
 
-        services.AddSingleton<PlatformInspector>();
-        services.AddSingleton<VendorMapper>();
-        services.AddSingleton<VendorPathAppender>();
-
+        services.AddSingleton<Launcher.Launcher>();
         services.AddSingleton<ErrorConsoleHolder>(sp =>
         {
             var console = AnsiConsole.Create(new AnsiConsoleSettings
@@ -35,14 +33,14 @@ internal class Program
 
         try
         {
-            provider.GetRequiredService<VendorPathAppender>().TryAppend();
+            var launcher = provider.GetRequiredService<Launcher.Launcher>();
 
-            var result = await Cli.Wrap("optipng")
+            var command = launcher.Create()
                 .WithArguments(args)
-                .WithValidation(CommandResultValidation.None)
                 .WithStandardOutputPipe(PipeTarget.ToStream(Console.OpenStandardOutput(), autoFlush: true))
-                .WithStandardErrorPipe(PipeTarget.ToStream(Console.OpenStandardError(), autoFlush: true))
-                .ExecuteAsync();
+                .WithStandardErrorPipe(PipeTarget.ToStream(Console.OpenStandardError(), autoFlush: true));
+
+            var result = await command.ExecuteAsync();
 
             return result.ExitCode;
         }

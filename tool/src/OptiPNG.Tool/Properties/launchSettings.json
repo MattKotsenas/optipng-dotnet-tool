@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OptiPNG.Tool": {
+      "commandName": "Project",
+      "commandLineArgs": "-simulate \"C:\\Users\\mattkot\\Downloads\\sample.png\""
+    }
+  }
+}

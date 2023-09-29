@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace OptiPNG.Tool;
+namespace OptiPNG.Launcher;
 
 internal class PlatformInspector
 {
@@ -8,7 +8,7 @@ internal class PlatformInspector
     {
         var arch = RuntimeInformation.OSArchitecture;
 
-        if (OperatingSystem.IsWindows())
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
             return new PlatformInfo
             {
@@ -17,7 +17,7 @@ internal class PlatformInspector
                 EnvPathSeparator = ";",
             };
         }
-        else if (OperatingSystem.IsLinux())
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             return new PlatformInfo
             {
@@ -26,7 +26,7 @@ internal class PlatformInspector
                 EnvPathSeparator = ":",
             };
         }
-        else if (OperatingSystem.IsMacOS())
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
             return new PlatformInfo
             {

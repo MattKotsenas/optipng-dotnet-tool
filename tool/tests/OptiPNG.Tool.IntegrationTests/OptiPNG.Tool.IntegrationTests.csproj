@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../src/OptiPNG.Tool/OptiPNG.Tool.csproj" />
+    <ProjectReference Include="$(RepoRoot)/tool/src/OptiPNG.Tool/OptiPNG.Tool.csproj" />
     <ProjectReference Include="../OptiPNG.Mock.Publisher/OptiPNG.Mock.Publisher.csproj" ReferenceOutputAssembly="false" />
   </ItemGroup>
 

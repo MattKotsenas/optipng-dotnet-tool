@@ -1,4 +1,4 @@
-﻿namespace OptiPNG.Tool;
+﻿namespace OptiPNG.Launcher;
 
 internal class VendorPathAppender
 {

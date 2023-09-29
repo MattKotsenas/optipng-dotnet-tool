@@ -1,5 +1,4 @@
-﻿using CliWrap;
-using CliWrap.Buffered;
+﻿using CliWrap.Buffered;
 
 namespace OptiPNG.Wrapper;
 
@@ -9,11 +8,11 @@ internal class Program
     {
         var files = args ?? Array.Empty<string>();
 
-        // TODO: Replace `OptiPNGTool` with `dotnet optipng` and remove ProjectReference
-        var result = await Cli.Wrap("OptiPNGTool")
-            .WithArguments(new[] { "-simulate" }.Union(files))
-            .WithValidation(CommandResultValidation.None)
-            .ExecuteBufferedAsync();
+        var launcher = new Launcher.Launcher();
+        var command = launcher.Create()
+            .WithArguments(new[] { "-simulate" }.Union(files));
+
+        var result = await command.ExecuteBufferedAsync();
 
         var exitCode = result.ExitCode;
 

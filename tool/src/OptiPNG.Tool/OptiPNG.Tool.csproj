@@ -35,8 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CliWrap" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <ProjectReference Include="$(RepoRoot)/launcher/src/OptiPNG.Launcher/OptiPNG.Launcher.csproj" />
     <PackageReference Include="Spectre.Console" />
   </ItemGroup>
 
