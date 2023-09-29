@@ -9,7 +9,7 @@ namespace OptiPNG.MSBuild;
 /// <summary>
 /// A task for invoking the OptiPNG tool.
 /// </summary>
-public class OptiPNGWrapper : ToolTask
+public class OptiPNG : ToolTask
 {
     private static readonly string ExeName = "OptiPNG.Verifier";
 
@@ -35,9 +35,7 @@ public class OptiPNGWrapper : ToolTask
             return ExecutablePath!;
         }
 
-        // TODO: Pull wrapper from NuGet package.
-
-        return ExeName;
+        return ToolExe;
     }
 
     protected override string GenerateCommandLineCommands()
@@ -50,5 +48,15 @@ public class OptiPNGWrapper : ToolTask
         }
 
         return builder.ToString();
+    }
+
+    protected override string? GetWorkingDirectory()
+    {
+        if (!string.IsNullOrEmpty(WorkingDirectory))
+        {
+            return WorkingDirectory;
+        }
+
+        return null;
     }
 }
