@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <UsePolyfill>true</UsePolyfill>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>OptiPNG.Wrapper</RootNamespace>
@@ -10,12 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CliWrap" />
-    <PackageReference Include="Spectre.Console" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="$(RepoRoot)/tool/src/OptiPNG.Tool/OptiPNG.Tool.csproj" />
+    <ProjectReference Include="$(RepoRoot)/launcher/src/OptiPNG.Launcher/OptiPNG.Launcher.csproj" />
   </ItemGroup>
 
 </Project>
