@@ -10,11 +10,19 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <!--
+      We need to take a reference on the Mock to ensure it's built before we "build". However we also want to
+      ensure that we don't copy the Mock project to our output folder, as that would result in the mock
+      always being on $PATH. Thus we need to set the private and assets properties per https://github.com/dotnet/msbuild/issues/4371.
+     -->
+    <ProjectReference Include="../OptiPNG.Mock/OptiPNG.Mock.csproj" Private="false" ExcludeAssets="all" />
+  </ItemGroup>
+
   <Target Name="PublishOptiPNGMock" BeforeTargets="AfterCompile">
-    <!-- TODO: Define inputs and outputs to do incremental build -->
-    <!-- NOTE: Consider using per-RID builds like this: https://github.com/novotnyllc/MSBuildSdkExtras#creating-per-runtimeidentifier-packages -->
-    <Exec WorkingDirectory="../OptiPNG.Mock" Command="dotnet publish -c $(ConfigurationName) --runtime win-x64 --self-contained" />
-    <Exec WorkingDirectory="../OptiPNG.Mock" Command="dotnet publish -c $(ConfigurationName) --runtime linux-x64 --self-contained" />
-    <Exec WorkingDirectory="../OptiPNG.Mock" Command="dotnet publish -c $(ConfigurationName) --runtime osx-x64 --self-contained" />
+    <MSBuild
+      Projects="../OptiPNG.Mock/OptiPNG.Mock.csproj"
+      Targets="Publish"
+      Properties="Configuration=$(Configuration)" />
   </Target>
 </Project>

@@ -2,7 +2,7 @@
 
 namespace OptiPNG.Launcher;
 
-internal class PlatformInspector
+public class PlatformInspector
 {
     public PlatformInfo Inspect()
     {

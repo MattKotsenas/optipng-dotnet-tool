@@ -4,9 +4,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>OptiPNG.Mock</RootNamespace>
     <AssemblyName>optipng</AssemblyName>
-    <PublishSingleFile>true</PublishSingleFile>
     <DebugType>embedded</DebugType>
-    <RuntimeIdentifiers>win-x64;linux-x64;osx-x64</RuntimeIdentifiers>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

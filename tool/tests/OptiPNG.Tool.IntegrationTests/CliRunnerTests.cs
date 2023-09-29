@@ -7,8 +7,6 @@ namespace OptiPNG.Launcher.IntegrationTests;
 
 public class When_a_custom_OptiPNG_is_available_on_the_users_PATH
 {
-    private readonly record struct PlatformInfo(string RuntimeIdentifier, string EnvPathSeparator);
-
     private readonly ITestOutputHelper _output;
 
     public When_a_custom_OptiPNG_is_available_on_the_users_PATH(ITestOutputHelper output)
@@ -16,56 +14,30 @@ public class When_a_custom_OptiPNG_is_available_on_the_users_PATH
         _output = output;
     }
 
-    private static PlatformInfo GetPlatformInfo()
+    private static string GetEnvSeparator()
     {
-        if (OperatingSystem.IsWindows())
-        {
-            return new PlatformInfo
-            {
-                RuntimeIdentifier = "win-x64",
-                EnvPathSeparator = ";"
-            };
-        }
-        else if (OperatingSystem.IsLinux())
-        {
-            return new PlatformInfo
-            {
-                RuntimeIdentifier = "linux-x64",
-                EnvPathSeparator = ":"
-            };
-        }
-        else if (OperatingSystem.IsMacOS())
-        {
-            return new PlatformInfo
-            {
-                RuntimeIdentifier = "osx-x64",
-                EnvPathSeparator = ":"
-            };
-        }
-        else
-        {
-            throw new PlatformNotSupportedException($"Platform with Runtime Identifier {Environment.OSVersion} not supported");
-        }
+        var inspector = new PlatformInspector();
+        return inspector.Inspect().EnvPathSeparator;
     }
 
-    private string BuildPathToOptiPNGMock(string runtimeIdentifier)
+    private string BuildPathToOptiPNGMock()
     {
-        var path = Path.Combine(Assembly.GetEntryAssembly()?.Location ?? string.Empty, "..", "..", "..", "..", "..", "OptiPNG.Mock", "bin", "Debug", "net7.0", runtimeIdentifier, "publish");
+        // TODO: Make this better, perhaps with MSBuild TargetOutputs -- https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-task?view=vs-2022
+        var path = Path.Combine(Assembly.GetEntryAssembly()?.Location ?? string.Empty, "..", "..", "..", "..", "..", "OptiPNG.Mock", "bin", "Debug", "net7.0", "publish");
         return Path.GetFullPath(path);
     }
 
     [Fact]
     public async Task The_custom_executable_is_used()
     {
-        var platformInfo = GetPlatformInfo();
-        var mockPath = BuildPathToOptiPNGMock(platformInfo.RuntimeIdentifier);
+        var mockPath = BuildPathToOptiPNGMock();
         _output.WriteLine("Using mock path `{0}`", mockPath);
 
         // TODO: Replace `OptiPNGTool` with `dotnet optipng` and remove ProjectReference
         var result = await Cli.Wrap("OptiPNGTool")
             .WithEnvironmentVariables(new Dictionary<string, string?>
             {
-                { "PATH", $@"{Environment.GetEnvironmentVariable("PATH")}{platformInfo.EnvPathSeparator}{mockPath}" }
+                { "PATH", $@"{Environment.GetEnvironmentVariable("PATH")}{GetEnvSeparator()}{mockPath}" }
             })
             .ExecuteBufferedAsync();
 
@@ -81,7 +53,6 @@ public class When_there_is_no_custom_OptiPNG_available_on_the_users_PATH
     [Fact]
     public async Task The_vendor_implementation_is_used()
     {
-        // TODO: Replace `OptiPNGTool` with `dotnet optipng` and remove ProjectReference
         var result = await Cli.Wrap("OptiPNGTool")
             .WithValidation(CommandResultValidation.None)
             .ExecuteBufferedAsync();
