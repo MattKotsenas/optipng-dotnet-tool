@@ -1,6 +1,8 @@
 <Project>
 
   <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
     <Authors>Matt Kotsenas</Authors>
     <PackageProjectUrl>https://github.com/MattKotsenas/optipng-dotnet-tool</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
