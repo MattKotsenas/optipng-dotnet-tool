@@ -18,24 +18,16 @@ internal class VendorMapper
         {
             var info = _inspector.Inspect();
 
-            var entryAssembly = Assembly.GetEntryAssembly();
-            if (entryAssembly is null)
+            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            if (baseDirectory is null)
             {
                 // We won't be able to find the packaged vendor binaries, thus we can't provide a vendor path
                 return null;
             }
-
-            var parent = new FileInfo(entryAssembly.Location).DirectoryName;
-            if (parent is null)
-            {
-                // We won't be able to find the packaged vendor binaries, thus we can't provide a vendor path
-                return null;
-            }
-
 
             var newPath = new List<string>
             {
-                parent,
+                baseDirectory,
                 "vendor",
             };
 

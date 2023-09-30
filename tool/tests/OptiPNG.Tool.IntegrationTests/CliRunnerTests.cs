@@ -3,7 +3,9 @@ using System.Reflection;
 using CliWrap;
 using CliWrap.Buffered;
 
-namespace OptiPNG.Launcher.IntegrationTests;
+using OptiPNG.Launcher;
+
+namespace OptiPNG.Tool.IntegrationTests;
 
 public class When_a_custom_OptiPNG_is_available_on_the_users_PATH
 {

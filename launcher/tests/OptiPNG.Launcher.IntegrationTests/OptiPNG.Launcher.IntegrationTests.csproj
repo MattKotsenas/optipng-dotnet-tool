@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">net462</TargetFrameworks>
+    <TargetFrameworks>$(TargetFrameworks);net7.0</TargetFrameworks>
+
+    <RootNamespace>OptiPNG.Launcher.IntegrationTests</RootNamespace>
+    <AssemblyName>$(RootNamespace)</AssemblyName>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+
+    <!-- DO NOT use Polyfill, as it may mask dependency issues on .NET Framework -->
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(RepoRoot)/launcher/src/OptiPNG.Launcher/OptiPNG.Launcher.csproj" />
+  </ItemGroup>
+
+</Project>

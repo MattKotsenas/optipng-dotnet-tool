@@ -1,28 +1,35 @@
 <Project>
 
-  <ItemGroup Condition="'$(IsTestProject)' == 'true'">
-    <PackageReference Include="FluentAssertions" />
+  <Choose>
+    <When Condition="'$(IsTestProject)' == 'true'">
 
-    <Using Include="FluentAssertions" />
-  </ItemGroup>
+      <ItemGroup>
+        <PackageReference Include="FluentAssertions" />
+      </ItemGroup>
 
-  <ItemGroup Condition="'$(IsTestProject)' == 'true'">
-    <PackageReference Include="xunit" />
-    <PackageReference Include="xunit.runner.visualstudio">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+      <ItemGroup>
+        <PackageReference Include="xunit" />
+        <PackageReference Include="xunit.runner.visualstudio">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+      </ItemGroup>
 
-    <Using Include="Xunit" />
-    <Using Include="Xunit.Abstractions" />
-  </ItemGroup>
+      <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="coverlet.collector">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+      </ItemGroup>
 
-  <ItemGroup Condition="'$(IsTestProject)' == 'true'">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="coverlet.collector">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
+      <ItemGroup Condition="'$(ImplicitUsings)' == 'enable' OR '$(ImplicitUsings)' == 'true'">
+        <Using Include="FluentAssertions"/>
+        <Using Include="Xunit"/>
+        <Using Include="Xunit.Abstractions"/>
+      </ItemGroup>
+
+    </When>
+  </Choose>
 
 </Project>

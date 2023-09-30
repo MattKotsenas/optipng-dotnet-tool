@@ -7,8 +7,8 @@
   <ItemGroup Condition="'$(UsePolyfill)' == 'true'">
     <!-- Polyfill + dependencies -->
     <PackageReference Include="Polyfill" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
-    <PackageReference Include="System.Memory" PrivateAssets="all" Condition="$(TargetFrameworkIdentifier) == '.NETStandard' or $(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework.StartsWith('netcoreapp2'))" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" PrivateAssets="all" Condition="$(TargetFramework) == 'netstandard2.0' or $(TargetFramework) == 'netcoreapp2.0' or $(TargetFrameworkIdentifier) == '.NETFramework'" />
+    <PackageReference Include="System.Memory" Condition="$(TargetFrameworkIdentifier) == '.NETStandard' or $(TargetFrameworkIdentifier) == '.NETFramework' or $(TargetFramework.StartsWith('netcoreapp2'))" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Condition="$(TargetFramework) == 'netstandard2.0' or $(TargetFramework) == 'netcoreapp2.0' or $(TargetFrameworkIdentifier) == '.NETFramework'" />
   </ItemGroup>
 
 </Project>

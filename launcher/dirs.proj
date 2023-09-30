@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.Build.Traversal">
   <ItemGroup>
     <ProjectReference Include="src/OptiPNG.Launcher/OptiPNG.Launcher.csproj" />
+    <ProjectReference Include="tests/OptiPNG.Launcher.IntegrationTests/OptiPNG.Launcher.IntegrationTests.csproj" />
   </ItemGroup>
 </Project>
