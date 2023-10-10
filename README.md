@@ -2,6 +2,10 @@
 
 [![Build](https://img.shields.io/github/actions/workflow/status/MattKotsenas/optipng-dotnet-tool/ci.yml?branch=main)](https://github.com/MattKotsenas/optipng-dotnet-tool/actions)
 
+| Package     | Version                                               | Downloads                                                                                             |
+|-------------|-------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+|OptiPNG.Tool | ![Nuget](https://img.shields.io/nuget/v/OptiPNG.Tool) | [![Downloads](https://img.shields.io/nuget/dt/OptiPNG.Tool)](https://nuget.org/packages/OptiPNG.Tool) |
+
 [OptiPNG] is a PNG optimizer that recompresses image files to a smaller size, without losing any information. It also
 converts external formats (BMP, GIF, PNM and TIFF) to optimized PNG, and performs PNG integrity checks and corrections.
 
