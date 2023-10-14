@@ -32,7 +32,7 @@
       <PropertyGroup>
         <!-- Enable test logging to TRX files and place them in the artifacts directory -->
         <VSTestLogger>trx%3bLogFileName=$(MSBuildProjectName).trx</VSTestLogger>
-        <VSTestResultsDirectory Condition="'$(VSTestResultsDirectory)' == ''">$(ArtifactsPath)/TestResults/$(TargetFramework)</VSTestResultsDirectory>
+        <VSTestResultsDirectory Condition="'$(VSTestResultsDirectory)' == ''">$(ArtifactsTestResultsPath)/$(TargetFramework)</VSTestResultsDirectory>
       </PropertyGroup>
 
     </When>

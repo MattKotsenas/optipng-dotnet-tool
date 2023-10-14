@@ -9,7 +9,7 @@
     <Copyright>Copyright (c) Matt Kotsenas 2023</Copyright>
     <PackageTags>Png Optimize Optimization Compress Compression Image</PackageTags>
     <DevelopmentDependency>true</DevelopmentDependency>
-    <PackageOutputPath>$(ArtifactsPath)/package</PackageOutputPath>
+    <PackageOutputPath>$(ArtifactsPackagePath)</PackageOutputPath>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 

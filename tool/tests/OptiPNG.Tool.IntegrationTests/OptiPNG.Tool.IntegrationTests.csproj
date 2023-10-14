@@ -8,11 +8,17 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Inject the artifacts path into the assembly so we can create a nuget.config pointing to correct place -->
+    <AssemblyMetadata Include="PackagePath" Value="$(ArtifactsPackagePath)" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CliWrap" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.Extensions" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" />
   </ItemGroup>
 
   <ItemGroup>

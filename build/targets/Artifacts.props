@@ -5,7 +5,9 @@
   -->
 
   <PropertyGroup>
-    <ArtifactsPath>$(RepoRoot)/artifacts</ArtifactsPath>
+    <ArtifactsPath>$(RepoRoot)/artifacts/</ArtifactsPath>
+    <ArtifactsPackagePath>$(ArtifactsPath)/package/</ArtifactsPackagePath>
+    <ArtifactsTestResultsPath>$(ArtifactsPath)/TestResults/</ArtifactsTestResultsPath>
   </PropertyGroup>
 
 </Project>
