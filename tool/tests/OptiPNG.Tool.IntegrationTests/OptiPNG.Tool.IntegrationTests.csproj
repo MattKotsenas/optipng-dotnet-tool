@@ -22,8 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(RepoRoot)/tool/src/OptiPNG.Tool/OptiPNG.Tool.csproj" />
-    <ProjectReference Include="../OptiPNG.Mock.Publisher/OptiPNG.Mock.Publisher.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="$(RepoRoot)/launcher/src/OptiPNG.Launcher/OptiPNG.Launcher.csproj" />
+
+    <!-- We want to ensure that these projects are already built, but not copy their outputs into our own output directory -->
+    <ProjectReference Include="$(RepoRoot)/tool/src/OptiPNG.Tool/OptiPNG.Tool.csproj" ReferenceOutputAssembly="false" Private="false" ExcludeAssets="all" />
+    <ProjectReference Include="../OptiPNG.Mock.Publisher/OptiPNG.Mock.Publisher.csproj" ReferenceOutputAssembly="false" Private="false" ExcludeAssets="all" />
   </ItemGroup>
 
 </Project>
