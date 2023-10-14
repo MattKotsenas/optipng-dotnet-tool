@@ -1,5 +1,7 @@
 ﻿using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using System;
+using System.IO;
 
 namespace OptiPNG.MSBuild;
 
@@ -11,31 +13,25 @@ namespace OptiPNG.MSBuild;
 /// </summary>
 public class OptiPNG : ToolTask
 {
-    private static readonly string ExeName = "OptiPNG.Verifier";
-
-    /// <summary>
-    /// The current working directory for optipng.
-    /// </summary>
-    public string? WorkingDirectory { get; set; }
-
-    /// <summary>
-    /// Override the path to the optipng executable. When empty, the task assumes the tool is available on $PATH.
-    /// </summary>
-    public string? ExecutablePath { get; set; }
-
-    protected override string ToolName => ExeName;
+    protected override string ToolName => "OptiPNG.Verifier.exe";
 
     [Required]
     public ITaskItem[] Files { get; set; } = Array.Empty<ITaskItem>();
 
+    public OptiPNG()
+    {
+        LogStandardErrorAsError = true;
+    }
+
     protected override string GenerateFullPathToTool()
     {
-        if (!string.IsNullOrEmpty(ExecutablePath))
-        {
-            return ExecutablePath!;
-        }
+        var assembly = typeof(OptiPNG).Assembly.Location;
+        var dir = new FileInfo(assembly).Directory!.FullName;
 
-        return ToolExe;
+        var path = Path.Combine(dir, ToolExe);
+        path = Path.GetFullPath(path);
+
+        return path;
     }
 
     protected override string GenerateCommandLineCommands()
@@ -48,15 +44,5 @@ public class OptiPNG : ToolTask
         }
 
         return builder.ToString();
-    }
-
-    protected override string? GetWorkingDirectory()
-    {
-        if (!string.IsNullOrEmpty(WorkingDirectory))
-        {
-            return WorkingDirectory;
-        }
-
-        return null;
     }
 }

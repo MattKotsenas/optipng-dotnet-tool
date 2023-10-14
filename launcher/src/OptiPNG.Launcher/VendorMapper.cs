@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using System.Runtime.InteropServices;
-
-namespace OptiPNG.Launcher;
+﻿namespace OptiPNG.Launcher;
 
 internal class VendorMapper
 {

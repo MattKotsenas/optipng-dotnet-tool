@@ -6,6 +6,14 @@ public class PlatformInspector
 {
     public PlatformInfo Inspect()
     {
+#if NETFRAMEWORK
+        return new PlatformInfo
+        {
+            OsId = OperatingSystemId.Windows,
+            RuntimeCpuArchitecture = Environment.Is64BitOperatingSystem ? Architecture.X64 : Architecture.X86,
+            EnvPathSeparator = ";",
+        };
+#elif NETCOREAPP
         var arch = RuntimeInformation.OSArchitecture;
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -13,7 +21,7 @@ public class PlatformInspector
             return new PlatformInfo
             {
                 OsId = OperatingSystemId.Windows,
-                RuntimeCpuArchitecture = arch,
+                RuntimeCpuArchitecture = Enum.Parse<Architecture>(arch.ToString()),
                 EnvPathSeparator = ";",
             };
         }
@@ -22,7 +30,7 @@ public class PlatformInspector
             return new PlatformInfo
             {
                 OsId = OperatingSystemId.Linux,
-                RuntimeCpuArchitecture = arch,
+                RuntimeCpuArchitecture = Enum.Parse<Architecture>(arch.ToString()),
                 EnvPathSeparator = ":",
             };
         }
@@ -31,7 +39,7 @@ public class PlatformInspector
             return new PlatformInfo
             {
                 OsId = OperatingSystemId.MacOS,
-                RuntimeCpuArchitecture = arch,
+                RuntimeCpuArchitecture = Enum.Parse<Architecture>(arch.ToString()),
                 EnvPathSeparator = ":"
             };
         }
@@ -39,5 +47,6 @@ public class PlatformInspector
         {
             throw new PlatformNotSupportedException($"Platform with Operating System information `{Environment.OSVersion}` not supported");
         }
+#endif
     }
 }

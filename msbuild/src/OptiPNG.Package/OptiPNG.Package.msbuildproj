@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.Build.NoTargets">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <PackageId>OptiPNG.MSBuild</PackageId>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- NuGet does validation that libraries in a package are exposed as dependencies, but we _explicitly_ do not want that behavior for MSBuild tasks. They are isolated by design. Therefore we ignore this specific warning. -->
+    <NoWarn>NU5100;NU5128</NoWarn>
+
+    <!-- Tell the package we have no dependencies, rather than we depend on whatever version we use for the .msbuildproj -->
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+
+    <!--
+      Building in Visual Studio with our "non-standard" project setup gives errors like this:
+        msbuild\src\OptiPNG.Verifier\OptiPNG.Verifier.csproj : error MSB4057: The target "GetTargetPath" does not exist in the project.
+        msbuild\src\OptiPNG.MSBuild\OptiPNG.MSBuild.csproj : error MSB4057: The target "GetTargetPath" does not exist in the project.
+
+      I _believe_ this is related to https://github.com/dotnet/msbuild/issues/2661. Until that's fixed, disable including the package
+      project in the SlnGen'ed solution.
+    -->
+    <IncludeInSolutionFile>false</IncludeInSolutionFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../OptiPNG.MSBuild/OptiPNG.MSBuild.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../OptiPNG.Verifier/OptiPNG.Verifier.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+  <Target Name="AddItemsForPackaging" AfterTargets="Build">
+
+    <PropertyGroup>
+      <DependencyBasePath>$([System.IO.Path]::GetFullPath('$(BaseOutputPath)'))/dependencies/</DependencyBasePath>
+    </PropertyGroup>
+
+    <MSBuild Projects="../OptiPNG.MSBuild/OptiPNG.MSBuild.csproj" Targets="Build" Properties="BaseOutputPath=$(DependencyBasePath)">
+      <Output TaskParameter="TargetOutputs" ItemName="DependencyAssemblies" />
+    </MSBuild>
+    <MSBuild Projects="../OptiPNG.Verifier/OptiPNG.Verifier.csproj" Targets="Build" Properties="BaseOutputPath=$(DependencyBasePath)">
+      <Output TaskParameter="TargetOutputs" ItemName="DependencyAssemblies" />
+    </MSBuild>
+
+    <ItemGroup>
+      <Content Include="_._" Pack="true" PackagePath="lib/net462" />
+      <Content Include="_._" Pack="true" PackagePath="lib/net6.0" />
+
+      <Content Include="build/**" Pack="true" PackagePath="build/" />
+
+      <Content
+        Include="$(DependencyBasePath)/$(Configuration)/**"
+        Pack="true" PackagePath="tasks" />
+    </ItemGroup>
+
+  </Target>
+
+</Project>

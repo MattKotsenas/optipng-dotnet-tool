@@ -1,0 +1,9 @@
+<Project>
+
+  <PropertyGroup>
+    <_OptiPNGTaskAssembly Condition="'$(MSBuildRuntimeType)' != 'Core'">../tasks/net462/OptiPNG.MSBuild.dll</_OptiPNGTaskAssembly>
+    <_OptiPNGTaskAssembly Condition="'$(MSBuildRuntimeType)' == 'Core'">../tasks/net6.0/OptiPNG.MSBuild.dll</_OptiPNGTaskAssembly>
+  </PropertyGroup>
+
+  <UsingTask AssemblyFile="$(_OptiPNGTaskAssembly)" TaskName="OptiPNG.MSBuild.OptiPNG" />
+</Project>

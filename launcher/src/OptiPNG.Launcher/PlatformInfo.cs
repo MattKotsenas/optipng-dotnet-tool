@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace OptiPNG.Launcher;
+﻿namespace OptiPNG.Launcher;
 
 public readonly struct PlatformInfo
 {

@@ -2,10 +2,15 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net462;net6.0</TargetFrameworks>
     <UsePolyfill>true</UsePolyfill>
     <RootNamespace>OptiPNG.Verifier</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
+
+    <!--
+      This project is marked not packable because we use the Package project to satisfy the specific
+      needs of an MSBuild package.
+    -->
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
