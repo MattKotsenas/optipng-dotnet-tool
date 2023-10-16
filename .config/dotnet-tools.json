@@ -3,7 +3,7 @@
   "isRoot": true,
   "tools": {
     "microsoft.visualstudio.slngen.tool": {
-      "version": "10.3.4",
+      "version": "11.0.1",
       "commands": [
         "slngen"
       ]
