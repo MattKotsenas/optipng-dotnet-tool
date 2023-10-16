@@ -22,13 +22,14 @@ public class UnitTest1 : MSBuildTestBase
                 new Uri("https://api.nuget.org/v3/index.json")
             };
 
-            using (PackageRepository.Create(temp.FullName, feeds)
-                .Package("OptiPNG.MSBuild", "1.1.16-beta-g22112f53c7", out Package package))
+            using (PackageRepository.Create(temp.FullName, feeds))
             {
+
                 ProjectCreator.Templates.SdkCsproj()
-    .ItemPackageReference(package)
-    .Save(Path.Combine(temp.FullName, "ClassLibraryA", "ClassLibraryA.csproj"))
-    .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
+                    .ItemPackageReference("OptiPNG.MSBuild", "1.1.16-beta-g22112f53c7")
+                    //.ItemInclude("PngFiles", @"C:\Users\mattkot\Downloads\sample.png")
+                    .Save(Path.Combine(temp.FullName, "ClassLibraryA", "ClassLibraryA.csproj"))
+                    .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
                 result.Should().BeTrue();
             }
