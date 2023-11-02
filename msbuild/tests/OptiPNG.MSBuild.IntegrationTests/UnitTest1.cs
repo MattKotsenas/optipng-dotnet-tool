@@ -1,62 +1,57 @@
-using System.IO.Abstractions;
-using System.Reflection;
-
 using Microsoft.Build.Utilities.ProjectCreation;
 
 namespace OptiPNG.MSBuild.IntegrationTests;
 
-public class UnitTest1 : MSBuildTestBase
+// TODO: Embed test files in project
+// TODO: Add test for implicit file reference
+// TODO: Add test for incremental build
+
+public class When_creating_a_project_with_no_PNG_files : MSBuildTestBase
 {
     [Fact]
-    public void Test1()
+    public void The_build_succeeds()
     {
-        string localFeed = GetPackagePath();
+        using IntegrationTestContext context = new();
 
-        IFileSystem fs = new FileSystem();
+        context.ProjectCreator
+            .Save()
+            .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
-        using (fs.CreateDisposableDirectory(out IDirectoryInfo temp))
-        {
-            Uri[] feeds = new[]
-            {
-                new Uri(localFeed),
-                new Uri("https://api.nuget.org/v3/index.json")
-            };
+        result.Should().BeTrue();
+    }
+}
 
-            using (PackageRepository.Create(temp.FullName, feeds))
-            {
-                string version = GetLatestPackageVersionFromFeed(localFeed, "OptiPNG.MSBuild");
+public class Given_a_project_with_an_explicit_reference_to_a_PNG_file : MSBuildTestBase
+{
+    [Fact]
+    public void When_the_file_is_optimized_the_build_succeeds()
+    {
+        using IntegrationTestContext context = new();
 
-                ProjectCreator.Templates.SdkCsproj()
-                    .ItemPackageReference("OptiPNG.MSBuild", version)
-                    //.ItemInclude("PngFiles", @"C:\Users\mattkot\Downloads\sample.png")
-                    .Save(Path.Combine(temp.FullName, "ClassLibraryA", "ClassLibraryA.csproj"))
-                    .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
+        context.ProjectCreator
+            .ItemInclude("PngFiles", @"C:\Users\mattkot\Downloads\test.png")
+            .Save()
+            .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
-                result.Should().BeTrue();
-            }
-        }
+        result.Should().BeTrue();
     }
 
-    private static string GetPackagePath()
+    [Fact]
+    public void When_the_file_is_not_optimized_the_build_fails()
     {
-        // Pull the artifacts package path from the <AssemblyMetadata> MSBuild property in the project file
-        IEnumerable<AssemblyMetadataAttribute> attributes = typeof(UnitTest1).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>();
-        string? packagePath = attributes.Single(attribute => attribute.Key == "PackagePath").Value;
+        using IntegrationTestContext context = new();
 
-        return Path.GetFullPath(packagePath!);
-    }
+        context.ProjectCreator
+            .ItemInclude("PngFiles", @"C:\Users\mattkot\Downloads\test-orig.png")
+            .Save()
+            .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
-    private static string GetLatestPackageVersionFromFeed(string feed, string packageName)
-    {
-        // Search for file that begin with our package name
-        string[] files = Directory.GetFiles(feed, $"{packageName}*", SearchOption.TopDirectoryOnly);
+        result.Should().BeFalse();
 
-        // Find the most recently modified
-        FileInfo file = files.Select(f => new FileInfo(f)).OrderByDescending(f => f.LastWriteTimeUtc).First();
+        buildOutput.ErrorEvents.Should().HaveCount(1);
 
-        // Extract the version from the name
-        string version = file.Name.Replace($"{packageName}.", string.Empty).Replace(file.Extension, string.Empty);
-
-        return version;
+        string? message = buildOutput.ErrorEvents.Single().Message;
+        message.Should().NotBeNull();
+        message!.Trim().Should().EndWith("is not optimized. Run optipng to optimize and try again.");
     }
 }
