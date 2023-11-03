@@ -1,13 +1,19 @@
 <Project>
 
-<!-- TODO: Incremental build support -->
+  <PropertyGroup>
+    <OptiPNGStampFilePath Condition="'$(OptiPNGStampFilePath)' == ''">$(IntermediateOutputPath)/optipng.stamp</OptiPNGStampFilePath>
+  </PropertyGroup>
 
-  <Target Name="OptiPNGValidation" BeforeTargets="AfterBuild">
-    <ItemGroup Condition="@(PngFiles->Count()) == 0">
-      <PngFiles Include="**/*.png" />
-    </ItemGroup>
+  <ItemGroup Condition="@(PngFiles->Count()) == 0">
+    <PngFiles Include="**/*.png" />
+  </ItemGroup>
+
+  <Target Name="OptiPNGValidation" BeforeTargets="AfterBuild" Inputs="@(PngFiles)" Outputs="$(OptiPNGStampFilePath)">
 
     <OptiPNG Files="@(PngFiles)" StandardErrorImportance="High" />
+
+    <!-- Touch the stamp file so MSBuild can calculate incremental build -->
+    <Touch Files="$(OptiPNGStampFilePath)" AlwaysCreate="true" />
   </Target>
 
 </Project>
