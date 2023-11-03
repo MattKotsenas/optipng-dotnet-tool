@@ -14,17 +14,12 @@ internal class Program
 
         var result = await command.ExecuteBufferedAsync();
 
-        var exitCode = result.ExitCode;
-
-        foreach (var file in files)
+        ParseResult results = new OutputParser().Parse(files, result.StandardError);
+        foreach(string output in results.Output)
         {
-            if (!result.StandardError.Contains($"{file} is already optimized."))
-            {
-                Console.Error.WriteLine($"'{file}' is not optimized. Run optipng to optimize and try again.");
-                exitCode = -1;
-            }
+            Console.Error.WriteLine(output);
         }
 
-        return exitCode;
+        return results.Failed ? -1 : result.ExitCode;
     }
 }
