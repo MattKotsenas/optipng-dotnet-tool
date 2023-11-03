@@ -1,6 +1,5 @@
 <Project>
 
-<!-- TODO: Validate can override PngFiles -->
 <!-- TODO: Incremental build support -->
 
   <Target Name="OptiPNGValidation" BeforeTargets="AfterBuild">
