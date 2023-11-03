@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\optimized.png" />
     <None Remove="Resources\unoptimized.png" />
   </ItemGroup>
 
@@ -26,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\optimized.png" />
     <EmbeddedResource Include="Resources\unoptimized.png" />
   </ItemGroup>
 </Project>
