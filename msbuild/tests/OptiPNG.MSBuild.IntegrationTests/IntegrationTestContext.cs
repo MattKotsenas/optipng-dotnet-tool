@@ -46,6 +46,11 @@ internal class IntegrationTestContext : IDisposable
 
     private static string GetLatestPackageVersionFromFeed(string feed, string packageName)
     {
+        if (!Directory.Exists(feed))
+        {
+            throw new ArgumentException($"Directory for package feed '{feed}' does not exist. Ensure you build prior to running integration tests.", nameof(feed));
+        }
+
         // Search for file that begin with our package name
         string[] files = Directory.GetFiles(feed, $"{packageName}*", SearchOption.TopDirectoryOnly);
 
