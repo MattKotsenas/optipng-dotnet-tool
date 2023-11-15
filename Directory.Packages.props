@@ -3,9 +3,11 @@
 
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageVersion Include="AssemblyShader" Version="1.0.3-preview" />
     <PackageVersion Include="CliWrap" Version="3.6.4" />
     <PackageVersion Include="Microsoft.Build.Framework" Version="17.0.0" />
     <PackageVersion Include="Microsoft.Build.Utilities.Core" Version="17.0.0" />
