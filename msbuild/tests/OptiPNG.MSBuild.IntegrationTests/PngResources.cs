@@ -1,12 +1,13 @@
 ﻿using System.Reflection;
 
-using Microsoft.Build.Utilities.ProjectCreation;
-
 namespace OptiPNG.MSBuild.IntegrationTests;
 
-public abstract class IntegrationTestBase : MSBuildTestBase
+internal class PngResources
 {
-    protected async Task CopyEmbeddedResourceToFileAsync(string resourceName, string target)
+    public string OptimizedPngName => $"{GetType().Namespace}.Resources.optimized.png";
+    public string UnoptimizedPngName => $"{GetType().Namespace}.Resources.unoptimized.png";
+
+    public async Task CopyEmbeddedResourceToFileAsync(string resourceName, string target)
     {
         Assembly assembly = Assembly.GetExecutingAssembly();
 
