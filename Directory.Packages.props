@@ -15,8 +15,5 @@
     <PackageVersion Include="TestableIO.System.IO.Abstractions" Version="19.2.69" />
     <PackageVersion Include="TestableIO.System.IO.Abstractions.Extensions" Version="2.0.5" />
     <PackageVersion Include="TestableIO.System.IO.Abstractions.Wrappers" Version="19.2.69" />
-
-    <!-- Needed for transitive pinning. See: https://github.com/jeffkl/MSBuildProjectCreator/issues/170 -->
-    <PackageVersion Include="NuGet.Frameworks" Version="6.7.0" />
   </ItemGroup>
 </Project>
