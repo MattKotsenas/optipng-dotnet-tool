@@ -2,8 +2,6 @@ using Microsoft.Build.Utilities.ProjectCreation;
 
 namespace OptiPNG.MSBuild.IntegrationTests;
 
-// TODO: Add test for incremental build
-
 public class When_creating_a_project_with_no_PNG_files : IntegrationTestBase
 {
     [Fact]
@@ -12,7 +10,6 @@ public class When_creating_a_project_with_no_PNG_files : IntegrationTestBase
         using IntegrationTestContext context = new();
 
         context.ProjectCreator
-            .Save()
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
         result.Should().BeTrue();
@@ -30,7 +27,6 @@ public class Given_a_project_with_PNG_files_implicitly_included_via_targets_wild
         await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(projectDir, "optimized.png"));
 
         context.ProjectCreator
-            .Save()
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
         result.Should().BeTrue();
@@ -45,7 +41,6 @@ public class Given_a_project_with_PNG_files_implicitly_included_via_targets_wild
         await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.unoptimized.png", Path.Join(projectDir, "unoptimized.png"));
 
         context.ProjectCreator
-            .Save()
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
         result.Should().BeFalse();
@@ -55,6 +50,27 @@ public class Given_a_project_with_PNG_files_implicitly_included_via_targets_wild
         string? message = buildOutput.ErrorEvents.Single().Message;
         message.Should().NotBeNull();
         message!.Trim().Should().EndWith("is not optimized. Run optipng to optimize and try again.");
+    }
+
+    [Fact]
+    public async Task When_the_project_is_incrementally_built_no_work_is_done()
+    {
+        using IntegrationTestContext context = new();
+
+        string incrementalBuildMessage = "Skipping target \"OptiPNGValidation\" because all output files are up-to-date with respect to the input files.";
+
+        string projectDir = new FileInfo(context.ProjectCreator.FullPath).Directory!.FullName;
+        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(projectDir, "optimized.png"));
+
+        context.ProjectCreator
+            .TryBuild(restore: true, out bool initialBuildResult, out BuildOutput output);
+
+        initialBuildResult.Should().BeTrue();
+        output.GetConsoleLog().Should().NotContain(incrementalBuildMessage);
+
+        context.ProjectCreator.TryBuild(restore: false, out bool secondBuildResult, out BuildOutput output2);
+        secondBuildResult.Should().BeTrue();
+        output2.GetConsoleLog().Should().Contain(incrementalBuildMessage);
     }
 }
 
@@ -70,7 +86,6 @@ public class Given_a_project_with_an_explicit_reference_to_a_PNG_file : Integrat
 
         context.ProjectCreator
             .ItemInclude("PngFiles", @"optimized.png")
-            .Save()
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
         result.Should().BeTrue();
@@ -86,7 +101,6 @@ public class Given_a_project_with_an_explicit_reference_to_a_PNG_file : Integrat
 
         context.ProjectCreator
             .ItemInclude("PngFiles", @"unoptimized.png")
-            .Save()
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
         result.Should().BeFalse();
@@ -107,7 +121,6 @@ public class Given_a_project_with_an_explicit_reference_to_a_PNG_file : Integrat
 
         context.ProjectCreator
             .ItemInclude("PngFiles", fileName)
-            .Save()
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
         result.Should().BeFalse();
@@ -133,7 +146,6 @@ public class Given_a_project_with_both_PNG_files_that_match_the_targets_wildcard
 
         context.ProjectCreator
             .ItemInclude("PngFiles", @"unoptimized.png")
-            .Save()
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
         result.Should().BeFalse();
@@ -156,7 +168,6 @@ public class Given_a_project_with_both_PNG_files_that_match_the_targets_wildcard
 
         context.ProjectCreator
             .ItemInclude("PngFiles", @"optimized.png")
-            .Save()
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
         result.Should().BeTrue();
@@ -172,7 +183,6 @@ public class Given_a_project_with_both_PNG_files_that_match_the_targets_wildcard
 
         context.ProjectCreator
             .ItemInclude("PngFiles", @"optimized.png")
-            .Save()
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
         result.Should().BeTrue();
@@ -188,7 +198,6 @@ public class Given_a_project_with_both_PNG_files_that_match_the_targets_wildcard
 
         context.ProjectCreator
             .ItemInclude("PngFiles", @"unoptimized.png")
-            .Save()
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
         result.Should().BeFalse();
@@ -209,7 +218,6 @@ public class Given_a_project_with_both_PNG_files_that_match_the_targets_wildcard
 
         context.ProjectCreator
             .ItemInclude("PngFiles", fileName)
-            .Save()
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
 
         result.Should().BeFalse();

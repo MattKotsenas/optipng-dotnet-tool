@@ -32,6 +32,7 @@ internal class IntegrationTestContext : IDisposable
 
         ProjectCreator = ProjectCreator.Templates.SdkCsproj()
             .ItemPackageReference("OptiPNG.MSBuild", version)
+            .Property("GenerateAssemblyInfo", "false") // Double-building results in duplicate defintions of assembly info. Since our tests don't rely on assembly info, skip generating it
             .Save(Path.Combine(temp.FullName, "ClassLibraryA", "ClassLibraryA.csproj")); // Do the initial save here while we have the temp path. Future updates can call .Save() with no path to update the exiting project
     }
 
