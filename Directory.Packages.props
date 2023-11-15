@@ -1,9 +1,11 @@
 <Project>
   <!-- Most package versions are managed in via the corresponding vertical slice defined in //build/targets/*.props -->
+
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageVersion Include="AssemblyShader" Version="1.0.3-preview" />
     <PackageVersion Include="CliWrap" Version="3.6.4" />
@@ -16,4 +18,5 @@
     <PackageVersion Include="TestableIO.System.IO.Abstractions.Extensions" Version="2.0.5" />
     <PackageVersion Include="TestableIO.System.IO.Abstractions.Wrappers" Version="19.2.69" />
   </ItemGroup>
+
 </Project>

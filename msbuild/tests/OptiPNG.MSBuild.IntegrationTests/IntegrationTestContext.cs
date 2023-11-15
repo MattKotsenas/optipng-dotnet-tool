@@ -12,6 +12,7 @@ internal class IntegrationTestContext : IDisposable
     private readonly IDisposable _packageRepositoryHandle;
 
     public ProjectCreator ProjectCreator { get; private set; }
+    public string ProjectDir => new FileInfo(ProjectCreator.FullPath).Directory!.FullName;
 
     public IntegrationTestContext()
     {

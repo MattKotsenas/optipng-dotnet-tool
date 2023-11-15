@@ -23,8 +23,7 @@ public class Given_a_project_with_PNG_files_implicitly_included_via_targets_wild
     {
         using IntegrationTestContext context = new();
 
-        string projectDir = new FileInfo(context.ProjectCreator.FullPath).Directory!.FullName;
-        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(projectDir, "optimized.png"));
+        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(context.ProjectDir, "optimized.png"));
 
         context.ProjectCreator
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
@@ -37,8 +36,7 @@ public class Given_a_project_with_PNG_files_implicitly_included_via_targets_wild
     {
         using IntegrationTestContext context = new();
 
-        string projectDir = new FileInfo(context.ProjectCreator.FullPath).Directory!.FullName;
-        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.unoptimized.png", Path.Join(projectDir, "unoptimized.png"));
+        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.unoptimized.png", Path.Join(context.ProjectDir, "unoptimized.png"));
 
         context.ProjectCreator
             .TryBuild(restore: true, out bool result, out BuildOutput buildOutput);
@@ -59,8 +57,7 @@ public class Given_a_project_with_PNG_files_implicitly_included_via_targets_wild
 
         string incrementalBuildMessage = "Skipping target \"OptiPNGValidation\" because all output files are up-to-date with respect to the input files.";
 
-        string projectDir = new FileInfo(context.ProjectCreator.FullPath).Directory!.FullName;
-        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(projectDir, "optimized.png"));
+        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(context.ProjectDir, "optimized.png"));
 
         context.ProjectCreator
             .TryBuild(restore: true, out bool initialBuildResult, out BuildOutput output);
@@ -81,8 +78,7 @@ public class Given_a_project_with_an_explicit_reference_to_a_PNG_file : Integrat
     {
         using IntegrationTestContext context = new();
 
-        string projectDir = new FileInfo(context.ProjectCreator.FullPath).Directory!.FullName;
-        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(projectDir, "optimized.png"));
+        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(context.ProjectDir, "optimized.png"));
 
         context.ProjectCreator
             .ItemInclude("PngFiles", @"optimized.png")
@@ -96,8 +92,7 @@ public class Given_a_project_with_an_explicit_reference_to_a_PNG_file : Integrat
     {
         using IntegrationTestContext context = new();
 
-        string projectDir = new FileInfo(context.ProjectCreator.FullPath).Directory!.FullName;
-        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.unoptimized.png", Path.Join(projectDir, "unoptimized.png"));
+        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.unoptimized.png", Path.Join(context.ProjectDir, "unoptimized.png"));
 
         context.ProjectCreator
             .ItemInclude("PngFiles", @"unoptimized.png")
@@ -140,9 +135,8 @@ public class Given_a_project_with_both_PNG_files_that_match_the_targets_wildcard
     {
         using IntegrationTestContext context = new();
 
-        string projectDir = new FileInfo(context.ProjectCreator.FullPath).Directory!.FullName;
-        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(projectDir, "optimized.png"));
-        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.unoptimized.png", Path.Join(projectDir, "unoptimized.png"));
+        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(context.ProjectDir, "optimized.png"));
+        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.unoptimized.png", Path.Join(context.ProjectDir, "unoptimized.png"));
 
         context.ProjectCreator
             .ItemInclude("PngFiles", @"unoptimized.png")
@@ -162,9 +156,8 @@ public class Given_a_project_with_both_PNG_files_that_match_the_targets_wildcard
     {
         using IntegrationTestContext context = new();
 
-        string projectDir = new FileInfo(context.ProjectCreator.FullPath).Directory!.FullName;
-        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(projectDir, "optimized.png"));
-        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.unoptimized.png", Path.Join(projectDir, "unoptimized.png"));
+        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(context.ProjectDir, "optimized.png"));
+        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.unoptimized.png", Path.Join(context.ProjectDir, "unoptimized.png"));
 
         context.ProjectCreator
             .ItemInclude("PngFiles", @"optimized.png")
@@ -178,8 +171,7 @@ public class Given_a_project_with_both_PNG_files_that_match_the_targets_wildcard
     {
         using IntegrationTestContext context = new();
 
-        string projectDir = new FileInfo(context.ProjectCreator.FullPath).Directory!.FullName;
-        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(projectDir, "optimized.png"));
+        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.optimized.png", Path.Join(context.ProjectDir, "optimized.png"));
 
         context.ProjectCreator
             .ItemInclude("PngFiles", @"optimized.png")
@@ -193,8 +185,7 @@ public class Given_a_project_with_both_PNG_files_that_match_the_targets_wildcard
     {
         using IntegrationTestContext context = new();
 
-        string projectDir = new FileInfo(context.ProjectCreator.FullPath).Directory!.FullName;
-        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.unoptimized.png", Path.Join(projectDir, "unoptimized.png"));
+        await CopyEmbeddedResourceToFileAsync($"{GetType().Namespace}.Resources.unoptimized.png", Path.Join(context.ProjectDir, "unoptimized.png"));
 
         context.ProjectCreator
             .ItemInclude("PngFiles", @"unoptimized.png")
