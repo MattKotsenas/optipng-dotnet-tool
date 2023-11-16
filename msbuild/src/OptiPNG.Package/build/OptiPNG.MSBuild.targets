@@ -8,7 +8,7 @@
     <PngFiles Include="**/*.png" />
   </ItemGroup>
 
-  <Target Name="OptiPNGValidation" BeforeTargets="AfterBuild" Inputs="@(PngFiles)" Outputs="$(OptiPNGStampFilePath)">
+  <Target Name="ValidatePNGs" BeforeTargets="AfterBuild" Inputs="@(PngFiles)" Outputs="$(OptiPNGStampFilePath)">
 
     <OptiPNG Files="@(PngFiles)" StandardErrorImportance="High" />
 

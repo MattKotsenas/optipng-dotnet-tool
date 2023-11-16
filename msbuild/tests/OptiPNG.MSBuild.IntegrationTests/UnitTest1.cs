@@ -58,7 +58,7 @@ public class Given_a_project_with_PNG_files_implicitly_included_via_targets_wild
         using IntegrationTestContext context = new();
         PngResources pngResources = new();
 
-        string incrementalBuildMessage = "Skipping target \"OptiPNGValidation\" because all output files are up-to-date with respect to the input files.";
+        string incrementalBuildMessage = "Skipping target \"ValidatePNGs\" because all output files are up-to-date with respect to the input files.";
 
         await pngResources.CopyEmbeddedResourceToFileAsync(pngResources.OptimizedPngName, Path.Join(context.ProjectDir, "optimized.png"));
 
