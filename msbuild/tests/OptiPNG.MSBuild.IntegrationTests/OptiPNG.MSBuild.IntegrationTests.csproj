@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\optimized.png" />
+    <None Remove="Resources\unoptimized.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSBuild.ProjectCreation" />
+    <PackageReference Include="System.IO.Abstractions" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.Extensions" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Inject the artifacts path into the assembly so we can create a nuget.config pointing to correct place -->
+    <AssemblyMetadata Include="PackagePath" Value="$(ArtifactsPackagePath)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\optimized.png" />
+    <EmbeddedResource Include="Resources\unoptimized.png" />
+  </ItemGroup>
+</Project>
