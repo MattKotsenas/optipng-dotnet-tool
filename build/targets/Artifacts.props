@@ -1,12 +1,9 @@
 <Project>
-  <!--
-    Defining and using artifacts path manually in preparation for .NET 8's artifacts output format.
-    See https://github.com/dotnet/docs/issues/36446
-  -->
 
   <PropertyGroup>
     <ArtifactsPath>$(RepoRoot)/artifacts/</ArtifactsPath>
     <ArtifactsPackagePath>$(ArtifactsPath)/package/</ArtifactsPackagePath>
+    <ArtifactsPublishPath>$(ArtifactsPath)/publish/</ArtifactsPublishPath>
     <ArtifactsTestResultsPath>$(ArtifactsPath)/TestResults/</ArtifactsTestResultsPath>
   </PropertyGroup>
 

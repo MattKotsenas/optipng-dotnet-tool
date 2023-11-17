@@ -4,28 +4,29 @@ using System.Reflection;
 using CliWrap;
 using CliWrap.Buffered;
 
+using OptiPNG.Tool.IntegrationTests.AssemblyMetadata;
+
 namespace OptiPNG.Tool.IntegrationTests;
 
-public class When_running_the_tool_with_a_custom_lib : IClassFixture<NuGetConfigFixture>, IClassFixture<EnvSeparatorFixture>
+public class When_running_the_tool_with_a_custom_lib : IClassFixture<EnvSeparatorFixture>
 {
     private readonly ITestOutputHelper _output;
     private readonly IFileSystem _fs = new FileSystem();
-    private readonly string _nugetConfig;
     private readonly string _envSeparator;
+    private readonly Metadata _assemblyMetadata;
 
-    public When_running_the_tool_with_a_custom_lib(NuGetConfigFixture nugetFixture, EnvSeparatorFixture separatorFixture, ITestOutputHelper output)
+    public When_running_the_tool_with_a_custom_lib(EnvSeparatorFixture separatorFixture, ITestOutputHelper output)
     {
         _output = output;
-        _nugetConfig = nugetFixture.NuGetConfig;
         _envSeparator = separatorFixture.Separator;
+        _assemblyMetadata = new AssemblyMetadataParser().Parse();
 
-        _output.WriteLine($"Using NuGet package path '{nugetFixture.PackagePath}'");
+        _output.WriteLine($"Using NuGet package path '{_assemblyMetadata.PackagePath}'");
     }
 
     private string BuildPathToOptiPNGMock()
     {
-        // TODO: Make this better, perhaps with MSBuild TargetOutputs -- https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-task?view=vs-2022
-        var path = Path.Combine(Assembly.GetEntryAssembly()?.Location ?? string.Empty, "..", "..", "..", "..", "..", "OptiPNG.Mock", "bin", "Debug", "net7.0", "publish");
+        var path = Path.Combine(_assemblyMetadata.PublishPath.FullName, "OptiPNG.Mock", "debug");
         return Path.GetFullPath(path);
     }
 
@@ -61,7 +62,7 @@ public class When_running_the_tool_with_a_custom_lib : IClassFixture<NuGetConfig
 
             string nugetConfigPath = Path.Combine(temp.FullName, "nuget.config");
 
-            _fs.File.WriteAllText(nugetConfigPath, _nugetConfig);
+            _fs.File.WriteAllText(nugetConfigPath, new NuGetCreator().Create(_assemblyMetadata.PackagePath));
 
             await Install(temp.FullName, nugetConfigPath);
             BufferedCommandResult result = await Run(temp.FullName);
@@ -71,20 +72,20 @@ public class When_running_the_tool_with_a_custom_lib : IClassFixture<NuGetConfig
     }
 }
 
-public class When_running_the_default_tool : IClassFixture<NuGetConfigFixture>, IClassFixture<EnvSeparatorFixture>
+public class When_running_the_default_tool : IClassFixture<EnvSeparatorFixture>
 {
     private readonly ITestOutputHelper _output;
     private readonly IFileSystem _fs = new FileSystem();
-    private readonly string _nugetConfig;
     private readonly string _envSeparator;
+    private readonly Metadata _assemblyMetadata;
 
-    public When_running_the_default_tool(NuGetConfigFixture nugetFixture, EnvSeparatorFixture separatorFixture, ITestOutputHelper output)
+    public When_running_the_default_tool(EnvSeparatorFixture separatorFixture, ITestOutputHelper output)
     {
         _output = output;
-        _nugetConfig = nugetFixture.NuGetConfig;
         _envSeparator = separatorFixture.Separator;
+        _assemblyMetadata = new AssemblyMetadataParser().Parse();
 
-        _output.WriteLine($"Using NuGet package path '{nugetFixture.PackagePath}'");
+        _output.WriteLine($"Using NuGet package path '{_assemblyMetadata.PackagePath}'");
     }
 
     private static async Task<BufferedCommandResult> Install(string temp, string nuget)
@@ -116,7 +117,7 @@ public class When_running_the_default_tool : IClassFixture<NuGetConfigFixture>, 
 
             string nugetConfigPath = Path.Combine(temp.FullName, "nuget.config");
 
-            _fs.File.WriteAllText(nugetConfigPath, _nugetConfig);
+            _fs.File.WriteAllText(nugetConfigPath, new NuGetCreator().Create(_assemblyMetadata.PackagePath));
 
             await Install(temp.FullName, nugetConfigPath);
             BufferedCommandResult result = await Run(temp.FullName);

@@ -11,8 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Inject the artifacts path into the assembly so we can create a nuget.config pointing to correct place -->
+    <!--
+      Inject the artifacts paths into the assembly so we can:
+        1. Create a nuget.config pointing to correct place
+        2. Find the OptiPNG.Mock outputs for tests
+    -->
     <AssemblyMetadata Include="PackagePath" Value="$(ArtifactsPackagePath)" />
+    <AssemblyMetadata Include="PublishPath" Value="$(ArtifactsPublishPath)" />
   </ItemGroup>
 
   <ItemGroup>
