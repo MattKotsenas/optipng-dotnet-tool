@@ -1,8 +1,9 @@
 ﻿using System.IO.Abstractions;
-using System.Reflection;
 
 using CliWrap;
 using CliWrap.Buffered;
+
+using Microsoft.Build.Utilities.ProjectCreation;
 
 using OptiPNG.Tool.IntegrationTests.AssemblyMetadata;
 
@@ -59,15 +60,13 @@ public class When_running_the_tool_with_a_custom_lib : IClassFixture<EnvSeparato
         using (_fs.CreateDisposableDirectory(out IDirectoryInfo temp))
         {
             _output.WriteLine($"Using temp directory '{temp.FullName}'");
+            using (PackageRepository repo = PackageRepository.Create(temp.FullName, new Uri(_assemblyMetadata.PackagePath.FullName)))
+            {
+                await Install(temp.FullName, repo.NuGetConfigPath);
+                BufferedCommandResult result = await Run(temp.FullName);
 
-            string nugetConfigPath = Path.Combine(temp.FullName, "nuget.config");
-
-            _fs.File.WriteAllText(nugetConfigPath, new NuGetCreator().Create(_assemblyMetadata.PackagePath));
-
-            await Install(temp.FullName, nugetConfigPath);
-            BufferedCommandResult result = await Run(temp.FullName);
-
-            result.StandardOutput.Trim().Should().Be("Hello, World!");
+                result.StandardOutput.Trim().Should().Be("Hello, World!");
+            }
         }
     }
 }
@@ -114,15 +113,13 @@ public class When_running_the_default_tool : IClassFixture<EnvSeparatorFixture>
         using (_fs.CreateDisposableDirectory(out IDirectoryInfo temp))
         {
             _output.WriteLine($"Using temp directory '{temp.FullName}'");
+            using (PackageRepository repo = PackageRepository.Create(temp.FullName, new Uri(_assemblyMetadata.PackagePath.FullName)))
+            {
+                await Install(temp.FullName, repo.NuGetConfigPath);
+                BufferedCommandResult result = await Run(temp.FullName);
 
-            string nugetConfigPath = Path.Combine(temp.FullName, "nuget.config");
-
-            _fs.File.WriteAllText(nugetConfigPath, new NuGetCreator().Create(_assemblyMetadata.PackagePath));
-
-            await Install(temp.FullName, nugetConfigPath);
-            BufferedCommandResult result = await Run(temp.FullName);
-
-            result.StandardOutput.Trim().Should().EndWith("Type \"optipng -h\" for extended help.");
+                result.StandardOutput.Trim().Should().EndWith("Type \"optipng -h\" for extended help.");
+            }
         }
     }
 }
