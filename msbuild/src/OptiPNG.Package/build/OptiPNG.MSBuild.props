@@ -5,5 +5,10 @@
     <_OptiPNGTaskAssembly Condition="'$(MSBuildRuntimeType)' == 'Core'">../tasks/net6.0/OptiPNG.MSBuild.dll</_OptiPNGTaskAssembly>
   </PropertyGroup>
 
-  <UsingTask AssemblyFile="$(_OptiPNGTaskAssembly)" TaskName="OptiPNG.MSBuild.OptiPNG" />
+  <!--
+    Added TaskFactory="TaskHostFactory" so that MSBuildProjectCreator's inproc build doesn't lock OptiPNG.MSBuild.dll.
+
+    TODO: Is there a better way to test this without forcing the performance hit of a short-lived process?
+  -->
+  <UsingTask AssemblyFile="$(_OptiPNGTaskAssembly)" TaskFactory="TaskHostFactory" TaskName="OptiPNG.MSBuild.OptiPNG" />
 </Project>

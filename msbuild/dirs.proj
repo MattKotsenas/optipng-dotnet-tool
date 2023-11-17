@@ -4,5 +4,6 @@
     <ProjectReference Include="src/OptiPNG.Verifier/OptiPNG.Verifier.csproj" />
     <ProjectReference Include="src/OptiPNG.Package/OptiPNG.Package.msbuildproj" />
     <ProjectReference Include="tests/OptiPNG.Verifier.UnitTests/OptiPNG.Verifier.UnitTests.csproj" />
+    <ProjectReference Include="tests/OptiPNG.MSBuild.IntegrationTests/OptiPNG.MSBuild.IntegrationTests.csproj" />
   </ItemGroup>
 </Project>
