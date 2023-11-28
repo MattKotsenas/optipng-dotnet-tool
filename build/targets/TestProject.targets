@@ -17,16 +17,7 @@
       </ItemGroup>
 
       <ItemGroup>
-        <!--
-          Use package shading (see https://github.com/jeffkl/packageshadingprototype) in order to make the
-          NuGet.Frameworks dependency in the Test SDK private to avoid
-          https://github.com/jeffkl/MSBuildProjectCreator/issues/170.
-          Also see
-          https://github.com/jeffkl/MSBuildProjectCreator/commit/6f3179c24d68113cb9d4afb6da8e9ef2dc57ba7c for an
-          example.
-        -->
-        <PackageReference Include="AssemblyShader" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" ShadeDependencies="NuGet.Frameworks" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
       </ItemGroup>
 
       <ItemGroup>
