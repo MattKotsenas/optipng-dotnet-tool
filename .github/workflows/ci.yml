@@ -24,7 +24,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work
 
@@ -58,7 +58,7 @@ jobs:
     needs: [build]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work
 
